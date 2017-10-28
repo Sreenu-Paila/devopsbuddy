@@ -58,14 +58,14 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
+			<version>1.2.3</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 
 		<!-- String security -->
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
-			<version>2.1.2.RELEASE</version>
+			<version>2.1.2.RELEASE</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 
 
