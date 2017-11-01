@@ -2,12 +2,13 @@ package com.devopsbuddy.backend.service;
 
 import com.devopsbuddy.web.controllers.ContactController;
 import com.devopsbuddy.web.domain.frontend.FeedbackPojo;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+
+
 
 /**
  * @author sreenu
