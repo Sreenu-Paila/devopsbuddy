@@ -2,11 +2,14 @@ package com.devopsbuddy.test.integration;
 
 import com.devopsbuddy.DevopsbuddyApplication;
 import com.devopsbuddy.backend.persistence.domain.backend.Plan;
+import com.devopsbuddy.backend.persistence.domain.backend.Role;
 import com.devopsbuddy.backend.persistence.domain.backend.User;
 import com.devopsbuddy.backend.persistence.domain.backend.UserRole;
 import com.devopsbuddy.backend.persistence.repositories.PlanRepository;
 import com.devopsbuddy.backend.persistence.repositories.RoleRepository;
 import com.devopsbuddy.backend.persistence.repositories.UserRepository;
+import com.devopsbuddy.enums.PlanEnum;
+import com.devopsbuddy.enums.RolesEnum;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -40,6 +43,7 @@ public class RepositoryIntegrationTest {
     private UserRepository userRepository;
 
     private static final int  BASIC_PALN_ID = 1;
+    private static final int BASIC_ROLE_ID = 1;
 
     @Before
     public void init(){
@@ -51,20 +55,29 @@ public class RepositoryIntegrationTest {
 
     @Test
     public void testCreateNewPlan() throws Exception {
-        Plan plan = createBassicPlan();
+        Plan plan = createBassicPlan(PlanEnum.BASIC);
         planRepository.save(plan);
-        Plan retrivedPlan = planRepository.findOne(BASIC_PALN_ID);
+        Plan retrivedPlan = planRepository.findOne(PlanEnum.BASIC.getId());
         Assert.assertNotNull(retrivedPlan);
     }
 
-    private Plan createBassicPlan(){
-        Plan plan = new Plan();
-        plan.setId(BASIC_PALN_ID);
-        plan.setName("Basic");
-        return plan;
+    @Test
+    public void testCreateNewRole() throws Exception {
+        Role role = createBasicRole(RolesEnum.BASIC);
+        roleRepository.save(role);
+        Role retrivedRole = roleRepository.findOne(RolesEnum.BASIC.getId());
+        Assert.assertNotNull(retrivedRole);
     }
 
-   /* @Test
+    private Plan createBassicPlan(PlanEnum planEnum){
+       return new Plan(planEnum);
+    }
+
+    private Role createBasicRole(RolesEnum rolesEnum){
+       return new Role(rolesEnum);
+    }
+
+    /*@Test
     public void testCreateNewPlan() throws Exception {
         Plan basicPlan = createPlan(PlansEnum.BASIC);
         planRepository.save(basicPlan);
@@ -135,7 +148,7 @@ public class RepositoryIntegrationTest {
         user = userRepository.findOne(user.getId());
         Assert.assertEquals(newPassword, user.getPassword());
 
-    }
-*/
+    }*/
+
 
 }
