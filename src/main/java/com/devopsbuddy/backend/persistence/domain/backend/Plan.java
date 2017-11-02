@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by sreenu on 28-10-2017.
  */
 @Entity
-class Plan implements Serializable {
+public class Plan implements Serializable {
 
     /** The Serial Version UID for Serializable classes. */
     private static final long serialVersionUID = 1L;
