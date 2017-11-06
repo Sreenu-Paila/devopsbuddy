@@ -1,9 +1,12 @@
 package com.devopsbuddy.backend.persistence.domain.backend;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,9 +15,11 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "User_Data")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
-    /** The Serial Version UID for Serializable classes. */
+    /**
+     * The Serial Version UID for Serializable classes.
+     */
     private static final long serialVersionUID = 1L;
 
 
@@ -26,12 +31,12 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     private String username;
 
     private String password;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     private String email;
 
     @Column(name = "first_name")
@@ -60,8 +65,6 @@ public class User implements Serializable {
     @JoinColumn(name = "plan_id")
     private Plan plan;
 
-
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
 
@@ -76,8 +79,6 @@ public class User implements Serializable {
     public String getUsername() {
         return username;
     }
-
-
 
     public void setUsername(String username) {
         this.username = username;
@@ -155,6 +156,28 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+       Set<GrantedAuthority> authorities = new HashSet<>();
+       userRoles.forEach(userRole -> authorities.add(new Authority(userRole.getRole().getName())));
+       return authorities;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -180,7 +203,6 @@ public class User implements Serializable {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -197,5 +219,23 @@ public class User implements Serializable {
         return (int) (id ^ (id >>> 32));
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", description='" + description + '\'' +
+                ", country='" + country + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
+                ", stripeCustomerId='" + stripeCustomerId + '\'' +
+                ", enabled=" + enabled +
+                ", plan=" + plan +
+                ", userRoles=" + userRoles +
+                '}';
+    }
 }

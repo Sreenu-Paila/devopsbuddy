@@ -34,14 +34,16 @@ public class UserService {
     public User createUser(User user, PlanEnum planEnum, Set<UserRole> userRoles){
         Plan plan = new Plan(planEnum);
         if(!planRepository.exists(planEnum.getId())){
+            System.out.println("plan :" + plan);
             plan = planRepository.save(plan);
         }
         user.setPlan(plan);
-        for (UserRole userRole:userRoles
-             ) {
+       /* for (UserRole userRole:userRoles) {
             roleRepository.save(userRole.getRole());
-        }
+        }*/
         user.getUserRoles().addAll(userRoles);
-        return userRepository.save(user);
+        System.out.println("user : "+user);
+        user = userRepository.save(user);
+        return user;
     }
 }

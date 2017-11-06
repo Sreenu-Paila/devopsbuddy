@@ -36,12 +36,12 @@ CREATE TABLE User_Data (
   created_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL ,
   updated_at timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL ,
   PRIMARY KEY (id),
-  CONSTRAnumber  users_ix_email  UNIQUE (email),
-   CONSTRAnumber users_ix_username UNIQUE (username),
-  CONSTRAnumber fk_plan_users FOREIGN KEY (plan_id) REFERENCES plan (id)
-) 
+  CONSTRAINT  users_ix_email  UNIQUE  (email),
+  CONSTRAINT users_ix_username UNIQUE  (username),
+  CONSTRAINT fk_plan_users FOREIGN KEY (plan_id) REFERENCES plan (id)
+)
 
-COMMIT;
+  COMMIT;
 --
 -- Table structure for table role
 --
@@ -62,28 +62,28 @@ CREATE TABLE user_role (
   user_id number(10)  NOT NULL,
   role_id number(10)  NOT NULL,
   PRIMARY KEY (id),
-  
+
   CONSTRAINT fk_userrole_user_idx
-    FOREIGN KEY (role_id)
-    REFERENCES user_data (id),
+  FOREIGN KEY (role_id)
+  REFERENCES user_data (id),
   CONSTRAINT fk_userrole_role_idx
-    FOREIGN KEY (role_id)
-    REFERENCES role (id)
-    
- 
+  FOREIGN KEY (role_id)
+  REFERENCES role (id)
+
+
 ) ;
 
 CREATE SEQUENCE userrole_seq START WITH 1;
 
-CREATE OR REPLACE TRIGGER userrole_tr 
-BEFORE INSERT ON user_role 
+CREATE OR REPLACE TRIGGER userrole_tr
+BEFORE INSERT ON user_role
 FOR EACH ROW
 
-BEGIN
-  SELECT userrole_seq.NEXTVAL
-  INTO   :new.id
-  FROM   dual;
-END;
+  BEGIN
+    SELECT userrole_seq.NEXTVAL
+    INTO   :new.id
+    FROM   dual;
+  END;
 
 COMMIT;
 
@@ -96,21 +96,21 @@ CREATE TABLE password_reset_token (
   user_id number(10)  NOT NULL,
   expiry_date TIMESTAMP NOT NULL,
   PRIMARY KEY (id),
-  UNIQUE KEY token_ix_token (token),
-  CONSTRAnumber fk_token_user FOREIGN KEY (user_id) REFERENCES user (id)
-) ;
+  CONSTRAINT token_ix_token UNIQUE (token),
+  CONSTRAINT fk_token_user FOREIGN KEY (user_id) REFERENCES user (id)
+)
 
 CREATE SEQUENCE password_reset_token_seq START WITH 1;
 
-CREATE OR REPLACE TRIGGER password_reset_token_tr 
-BEFORE INSERT ON password_reset_token 
+CREATE OR REPLACE TRIGGER password_reset_token_tr
+BEFORE INSERT ON password_reset_token
 FOR EACH ROW
 
-BEGIN
-  SELECT password_reset_token_seq.NEXTVAL
-  INTO   :new.id
-  FROM   dual;
-END;
+  BEGIN
+    SELECT password_reset_token_seq.NEXTVAL
+    INTO   :new.id
+    FROM   dual;
+  END;
 
 COMMIT;
 
@@ -118,11 +118,11 @@ COMMIT;
 COMMIT;
 
 
-INSERT numberO plan VALUES ('1', 'Basic');
-INSERT numberO plan VALUES ('2', 'Pro');
+INSERT into plan VALUES ('1', 'Basic');
+INSERT into plan VALUES ('2', 'Pro');
 
-INSERT numberO role VALUES (1, 'ROLE_BASIC');
-INSERT numberO role VALUES (2, 'ROLE_PRO');
-INSERT numberO role VALUES (3, 'ROLE_ADMIN');
+INSERT into role VALUES (1, 'ROLE_BASIC');
+INSERT into role VALUES (2, 'ROLE_PRO');
+INSERT into role VALUES (3, 'ROLE_ADMIN');
 
 COMMIT;

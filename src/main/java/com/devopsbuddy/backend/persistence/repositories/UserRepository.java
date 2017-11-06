@@ -9,4 +9,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>{
+
+    /**
+     * Returns a User given by username if exists else returns null
+     * @param username
+     * @return
+     */
+    public User findByUsername(String username);
 }

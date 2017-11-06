@@ -72,4 +72,13 @@ public class Role implements Serializable {
     public int hashCode() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", userRoles=" + userRoles +
+                '}';
+    }
 }
