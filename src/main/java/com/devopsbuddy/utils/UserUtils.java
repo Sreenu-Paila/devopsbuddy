@@ -11,11 +11,17 @@ public class UserUtils {
         throw new AssertionError("Non Instantiable");
     }
 
-    public static User createBasicUser(){
+    /**
+     * Create a user with basic user information
+     * @param username User name
+     * @param email Password
+     * @return
+     */
+    public static User createBasicUser(String username, String email){
         User user = new User();
-        user.setUsername("basicUser");
+        user.setUsername(username);
         user.setPassword("secret");
-        user.setEmail("sample@example.com");
+        user.setEmail(email);
         user.setFirstName("firstName");
         user.setLastName("lastName");
         user.setCountry("NL");

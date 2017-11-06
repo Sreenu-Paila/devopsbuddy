@@ -19,7 +19,7 @@ import com.devopsbuddy.backend.service.MockEmailService;
 
 @Configuration
 @Profile("dev")
-@PropertySource("file:///${user.home}/sreenu/my_workspace/devopsbuddy/src/main/resources/application-dev.properties")
+@PropertySource("file:///${user.home}/sreenu/my_workspace/devopsbuddy/application-dev.properties")
 public class DevelopmentConfig {
 
 	@Bean

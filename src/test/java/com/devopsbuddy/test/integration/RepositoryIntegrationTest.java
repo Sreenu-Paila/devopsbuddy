@@ -17,6 +17,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -30,6 +32,9 @@ import java.util.Set;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = DevopsbuddyApplication.class)
 public class RepositoryIntegrationTest {
+
+    /** The Application logger*/
+    private static  final Logger LOG = LoggerFactory.getLogger(RepositoryIntegrationTest.class);
 
     @Rule
     public TestName testName = new TestName();
@@ -56,10 +61,12 @@ public class RepositoryIntegrationTest {
 
     @Test
     public void testCreateNewPlan() throws Exception {
+        System.out.println("Start......testCreateNewPlan");
         Plan plan = createBassicPlan(PlanEnum.BASIC);
         planRepository.save(plan);
         Plan retrivedPlan = planRepository.findOne(PlanEnum.BASIC.getId());
         Assert.assertNotNull(retrivedPlan);
+        System.out.println("End......testCreateNewPlan");
     }
 
     private Plan createBassicPlan(PlanEnum planEnum) {
@@ -70,16 +77,16 @@ public class RepositoryIntegrationTest {
         return new Role(rolesEnum);
     }
 
-    private User createUser() {
+    private User createUser(String username, String email) {
         Plan basicPlan = createBassicPlan(PlanEnum.BASIC);
         planRepository.save(basicPlan);
 
 
-        User basicUser = UserUtils.createBasicUser();
+        User basicUser = UserUtils.createBasicUser(username, email);
         basicUser.setPlan(basicPlan);
 
         Role role = createBasicRole(RolesEnum.BASIC);
-        roleRepository.save(role);
+//        roleRepository.save(role);
 
         Set<UserRole> userRoles = new HashSet<>();
         UserRole userRole = new UserRole(basicUser, role);
@@ -91,10 +98,13 @@ public class RepositoryIntegrationTest {
     }
 
 
-   /* @Test
+    /*@Test
     public void createNewUser() throws Exception {
+        System.out.println("Start......createNewUser");
+        String username = testName.getMethodName();
+        String email = testName.getMethodName() + "@sample.com";
 
-        User basicUser = UserUtils.createBasicUser();
+        User basicUser = createUser(username, email);
 
         User newlyCreatedUser = userRepository.findOne(basicUser.getId());
         Assert.assertNotNull(newlyCreatedUser);
@@ -106,14 +116,18 @@ public class RepositoryIntegrationTest {
             Assert.assertNotNull(ur.getRole());
             Assert.assertNotNull(ur.getRole().getId());
         }
-
+        System.out.println("End......createNewUser");
     }
 
     @Test
     public void testDeleteUser() throws Exception {
+        System.out.println("start......testDeleteUser");
+        String username = testName.getMethodName();
+        String email = testName.getMethodName() + "@sample.com";
 
-         User basicUser =  UserUtils.createBasicUser();
+        User basicUser = createUser(username, email);
         userRepository.delete(basicUser.getId());
+        System.out.println("End......testDeleteUser");
     }*/
 
     /*@Test
