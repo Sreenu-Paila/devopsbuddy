@@ -35,23 +35,25 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public User createUser(User user, PlanEnum planEnum, Set<UserRole> userRoles){
+    public User createUser(User user, PlanEnum plansEnum, Set<UserRole> userRoles) {
 
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-
-        Plan plan = new Plan(planEnum);
-        if(!planRepository.exists(planEnum.getId())){
-            System.out.println("plan :" + plan);
+        Plan plan = new Plan(plansEnum);
+        // It makes sure the plans exist in the database
+        if (!planRepository.exists(plansEnum.getId())) {
             plan = planRepository.save(plan);
         }
+
         user.setPlan(plan);
-       /* for (UserRole userRole:userRoles) {
-            roleRepository.save(userRole.getRole());
+
+        /*for (UserRole ur : userRoles) {
+            roleRepository.save(ur.getRole());
         }*/
+
         user.getUserRoles().addAll(userRoles);
-        System.out.println("user : "+user);
+
         user = userRepository.save(user);
+
         return user;
+
     }
 }

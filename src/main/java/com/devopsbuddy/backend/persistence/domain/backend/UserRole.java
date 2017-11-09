@@ -75,13 +75,4 @@ public class UserRole implements Serializable {
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
     }
-
-    @Override
-    public String toString() {
-        return "UserRole{" +
-                "id=" + id +
-//                ", user=" + user +
-                ", role=" + role +
-                '}';
-    }
 }
