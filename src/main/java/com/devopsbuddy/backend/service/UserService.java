@@ -36,7 +36,6 @@ public class UserService {
 
     @Transactional
     public User createUser(User user, PlanEnum plansEnum, Set<UserRole> userRoles) {
-
         Plan plan = new Plan(plansEnum);
         // It makes sure the plans exist in the database
         if (!planRepository.exists(plansEnum.getId())) {
@@ -44,16 +43,20 @@ public class UserService {
         }
 
         user.setPlan(plan);
-
         /*for (UserRole ur : userRoles) {
             roleRepository.save(ur.getRole());
         }*/
-
         user.getUserRoles().addAll(userRoles);
-
         user = userRepository.save(user);
 
         return user;
 
     }
+
+    @Transactional
+    public void updateUserPassword(long userId, String password){
+        password = passwordEncoder.encode(password);
+        userRepository.updateUserPassword(userId,password);
+    }
+
 }

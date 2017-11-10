@@ -1,6 +1,7 @@
 package com.devopsbuddy.config;
 
 import com.devopsbuddy.backend.service.UserSecurityService;
+import com.devopsbuddy.web.controllers.ForgotMyPassworldController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/contact/**",
             "/error/**/*",
             "/console/**",
+			 ForgotMyPassworldController.FORGOT_PASSWORD_URL_MAPPING,
+			 ForgotMyPassworldController.CHANGE_PASSWORD_PATH
            
     };
 
