@@ -1,7 +1,8 @@
 package com.devopsbuddy.utils;
 
 import com.devopsbuddy.backend.persistence.domain.backend.User;
-import com.devopsbuddy.web.controllers.ForgotMyPassworldController;
+import com.devopsbuddy.web.controllers.ForgotMyPasswordController;
+import com.devopsbuddy.web.domain.frontend.BasicAccountPayload;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,8 +48,24 @@ public class UserUtils {
     public static String createPasswordResetUrl(HttpServletRequest request, long userId, String token) {
         String passwordResetUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() +
                 request.getContextPath() +
-                ForgotMyPassworldController.CHANGE_PASSWORD_PATH +
+                ForgotMyPasswordController.CHANGE_PASSWORD_PATH+
                 "?id=" + userId + "&token=" + token;
         return passwordResetUrl;
+    }
+
+    public static <T extends BasicAccountPayload> User fromWebUserToDmainUser(T frontendPayLoad) {
+        User user = new User();
+        user.setUsername(frontendPayLoad.getUsername());
+        user.setPassword(frontendPayLoad.getPassword());
+        user.setFirstName(frontendPayLoad.getFirstName());
+        user.setLastName(frontendPayLoad.getLastName());
+        user.setEmail(frontendPayLoad.getEmail());
+        user.setPhoneNumber(frontendPayLoad.getPhoneNumber());
+        user.setCountry(frontendPayLoad.getCountry());
+        user.setEnabled(true);
+        user.setDescription(frontendPayLoad.getDescription());
+
+
+        return user;
     }
 }
