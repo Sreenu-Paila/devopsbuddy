@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.UUID;
 
 /**
- * Created by IR17TX on 10-11-2017.
+ * Created by sreenu on 10-11-2017.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = DevopsbuddyApplication.class)
