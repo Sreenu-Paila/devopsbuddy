@@ -49,7 +49,7 @@ public class UserUtilsUnitTest {
         BasicAccountPayload webUser = podamFactory.manufacturePojoWithFullData(BasicAccountPayload.class);
         webUser.setEmail("me@sample.com");
 
-        User user = UserUtils.fromWebUserToDmainUser(webUser);
+        User user = UserUtils.fromWebUserToDomainUser(webUser);
 
         Assert.assertEquals(webUser.getUsername(), user.getUsername());
         Assert.assertEquals(webUser.getPassword(), user.getPassword());

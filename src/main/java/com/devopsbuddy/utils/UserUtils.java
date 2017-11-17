@@ -53,7 +53,7 @@ public class UserUtils {
         return passwordResetUrl;
     }
 
-    public static <T extends BasicAccountPayload> User fromWebUserToDmainUser(T frontendPayLoad) {
+    public static <T extends BasicAccountPayload> User fromWebUserToDomainUser(T frontendPayLoad) {
         User user = new User();
         user.setUsername(frontendPayLoad.getUsername());
         user.setPassword(frontendPayLoad.getPassword());

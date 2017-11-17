@@ -54,9 +54,17 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUserPassword(long userId, String password){
+    public void updateUserPassword(long userId, String password) {
         password = passwordEncoder.encode(password);
-        userRepository.updateUserPassword(userId,password);
+        userRepository.updateUserPassword(userId, password);
+    }
+
+    public User findByUserName(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }
