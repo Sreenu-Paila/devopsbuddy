@@ -5,6 +5,7 @@ import com.devopsbuddy.backend.persistence.domain.backend.Role;
 import com.devopsbuddy.backend.persistence.domain.backend.User;
 import com.devopsbuddy.backend.persistence.domain.backend.UserRole;
 import com.devopsbuddy.backend.service.PlanService;
+import com.devopsbuddy.backend.service.S3Service;
 import com.devopsbuddy.backend.service.UserService;
 import com.devopsbuddy.enums.PlanEnum;
 import com.devopsbuddy.enums.RolesEnum;
@@ -46,6 +47,9 @@ public class SignupController {
 
     /** The Application logger*/
     private static  final Logger LOG = LoggerFactory.getLogger(SignupController.class);
+
+    @Autowired
+    private S3Service s3Service;
 
     public static final String SIGNUP_URL_MAPPING = "/signup";
 
@@ -115,7 +119,7 @@ public class SignupController {
         User user = UserUtils.fromWebUserToDomainUser(payload);
 
         if (file != null && !file.isEmpty()){
-            String profileImageUrl = null;
+            String profileImageUrl = s3Service.storeProfile(file, payload.getUsername());
             if (profileImageUrl != null){
                 user.setProfileImageUrl(profileImageUrl);
             } else {
