@@ -1,3 +1,3 @@
 # devopsbuddy
 
-modified
+Add the procedure to run appliation
