@@ -15,7 +15,7 @@ import com.devopsbuddy.backend.service.SmtpEmailService;
 
 @Configuration
 @Profile("prod")
-@PropertySource("file:///${user.home}/sreenu/my_workspace/devopsbuddy/src/main/resources/application-prod.properties")
+@PropertySource("file:///${user.home}/sreenu/my_workspace/devopsbuddy/application-prod.properties")
 public class ProductionConfig {
 	
 	public EmailService emailService() {
